@@ -25,6 +25,10 @@ npm run dev
 
 Now you can open http://localhost:5050
 
+## Si no funciona (Sale en blanco o compila con 2 errores) entonces: 
+
+npm install @babel/core babel-loader --save-dev
+
 ### Packages included
 
 - [Webpack](https://webpack.js.org/)
