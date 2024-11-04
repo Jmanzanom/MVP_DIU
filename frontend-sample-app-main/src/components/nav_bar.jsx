@@ -19,7 +19,13 @@ export const NavBar = () => {
         className={navLinkClass}
         to='/lightbulb'
       >
-        Ampolleta
+        Catalogo
+      </NavLink>
+      <NavLink
+        className={navLinkClass}
+        to='/reserva'
+      >
+        Reserva
       </NavLink>
     </nav>
   )

@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import HomePage from '../pages/home_page'
 import LightbulbPage from '../pages/lightbulb_page'
+import ReservaPage from '../pages/reserva_page'
 
 import NavBar from '../components/nav_bar'
 
@@ -16,6 +17,7 @@ const Layout = () => {
           <Routes>
             <Route path='/' element={<HomePage />} />
             <Route path='/lightbulb' element={<LightbulbPage />} />
+            <Route path='/reserva' element={<ReservaPage />} />
           </Routes>
         </div>
       </div>
