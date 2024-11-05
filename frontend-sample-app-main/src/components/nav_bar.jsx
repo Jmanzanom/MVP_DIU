@@ -1,34 +1,86 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import logoImg from '../assets/logo.png';
+import './Navbar.css';
+
+// SVG del ícono de búsqueda como componente
+const SearchIcon = () => (
+  <svg 
+    width="20" 
+    height="20" 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth="2" 
+    strokeLinecap="round" 
+    strokeLinejoin="round"
+  >
+    <circle cx="11" cy="11" r="8"/>
+    <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+  </svg>
+);
 
 export const NavBar = () => {
   const navLinkClass = ({ isActive }) => {
-    const classes = ['nav-bar__link']
-    if (isActive) classes.push('nav-bar__link--active')
-    return classes.join(' ')
+    const classes = ['nav-bar__link'];
+    if (isActive) classes.push('nav-bar__link--active');
+    return classes.join(' ');
   }
+
   return (
-    <nav className='nav-bar'>
-      <NavLink
-        className={navLinkClass}
-        to='/'
-      >
-        Inicio
+    <nav className='nav-bar' style={{ backgroundColor: '#007bff', padding: '10px' }}> {/* Color de fondo azul */}
+      {/* Logo y Título */}
+      <NavLink to="/" className="nav-bar__brand">
+        <img 
+          src={logoImg} 
+          alt="Logo Biblioteca" 
+          className="nav-bar__logo"
+          style={{ width: '100px', height: '100px' }} // Aumentar el tamaño del logo
+        />
+        <div className="nav-bar__title" style={{ color: 'white' }}>
+          <span>Biblioteca </span>
+          <small> USM</small>
+        </div>
       </NavLink>
-      <NavLink
-        className={navLinkClass}
-        to='/lightbulb'
-      >
-        Catalogo
-      </NavLink>
-      <NavLink
-        className={navLinkClass}
-        to='/reserva'
-      >
-        Reserva
-      </NavLink>
+
+      {/* Barra de búsqueda */}
+      <div className="nav-bar__search">
+        <input
+          type="text"
+          placeholder="Buscar..."
+          className="nav-bar__search-input"
+          style={{ border: 'none', borderRadius: '4px', padding: '5px', marginRight: '5px' }} // Estilos de input
+        />
+        <span className="nav-bar__search-icon" style={{ cursor: 'pointer' }}>
+          <SearchIcon />
+        </span>
+      </div>
+
+      {/* Enlaces de navegación */}
+      <div className="nav-bar__links">
+        <NavLink
+          className={navLinkClass}
+          to='/'
+        >
+          Inicio
+        </NavLink>
+        <NavLink
+          className={navLinkClass}
+          to='/catalogo'
+        >
+          Catálogo
+        </NavLink>
+        <NavLink
+          className={navLinkClass}
+          to='/reserva'
+        >
+          Reserva
+        </NavLink>
+      </div>
     </nav>
   )
 }
- 
-export default NavBar
+
+export default NavBar;
+
+
