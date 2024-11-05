@@ -5,15 +5,15 @@ const createTimeSlots = (startHour, endHour) => {
   for (let hour = startHour; hour < endHour; hour++) {
     const formattedHour = hour < 10 ? `0${hour}:00` : `${hour}:00`;
     const nextHour = hour + 1 < 10 ? `0${hour + 1}:00` : `${hour + 1}:00`;
-    timeSlots.push({ time: `${formattedHour} - ${nextHour}`, available: Math.random() >= 0.5 }); // Cambiar la lógica de disponibilidad según sea necesario
+    timeSlots.push({ time: `${formattedHour} - ${nextHour}`, available: Math.random() >= 0.5 });
   }
   return timeSlots;
 };
 
 const dummyAvailability = {
   "Biblioteca Campus San Joaquín": {
-    "2-4 personas": createTimeSlots(8, 20), // Horarios entre 8 AM y 8 PM
-    "6+ personas": createTimeSlots(8, 20), // Horarios entre 8 AM y 8 PM
+    "2-4 personas": createTimeSlots(8, 20),
+    "6+ personas": createTimeSlots(8, 20), 
   }
 };
 
@@ -54,7 +54,6 @@ export const ReservaPage = () => {
     }
     
     if (selectedTimes.length > 0) {
-      // Aquí puedes manejar la lógica de reserva
       alert(`Reserva realizada para los horarios: ${selectedTimes.join(', ')} con el rol: ${rol}`);
     } else {
       alert('Por favor, selecciona al menos un horario para reservar.');
@@ -124,7 +123,7 @@ export const ReservaPage = () => {
             </tbody>
           </table>
 
-          {/* Campo de rol movido aquí */}
+          {}
           <label>
             Rol:
             <input
