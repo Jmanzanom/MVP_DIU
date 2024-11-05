@@ -1,0 +1,11 @@
+.catalog-container {
+    padding: 20px; /* Espaciado alrededor del catálogo */
+  }
+  
+  .catalogo__grid {
+    display: flex;
+    flex-wrap: wrap; /* Permite que las tarjetas se distribuyan en varias filas */
+    gap: 20px; /* Espaciado entre las tarjetas */
+    justify-content: space-between; /* Espaciado entre tarjetas */
+  }
+  
