@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import logoImg from '../assets/logo.png';
-import './Navbar.css';
+import '../stylesheets/nav-bar/index.scss';
 
 // SVG del ícono de búsqueda como componente
 const SearchIcon = () => (
@@ -28,7 +28,7 @@ export const NavBar = () => {
   }
 
   return (
-    <nav className='nav-bar' style={{ backgroundColor: '#007bff', padding: '10px' }}> {/* Color de fondo azul */}
+    <nav className='nav-bar'> {/* Color de fondo azul */}
       {/* Logo y Título */}
       <NavLink to="/" className="nav-bar__brand">
         <img 
