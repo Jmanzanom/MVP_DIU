@@ -1,5 +1,5 @@
 import React from "react";
-import '../stylesheets/CardLibro.css'; // Importa el archivo CSS específico para las tarjetas
+import '../stylesheets/index.scss'; // Importa el archivo SCSS con los styles
 
 function CardLibro({ libro }) {
   return (

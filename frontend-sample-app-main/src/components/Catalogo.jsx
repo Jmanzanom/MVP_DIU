@@ -6,7 +6,7 @@ import iliada from "../assets/iliada.png";
 import elantris from "../assets/elantris.jpg";
 import brumas from "../assets/brumas.jpg";
 import senorAnillos from "../assets/anillos.jpg";
-import '../stylesheets/Catalogo.css'; // Importa el archivo CSS para el catálogo
+import '../stylesheets/index.scss'; // Importa el archivo CSS para el catálogo
 
 function Catalogo() {
   const categorias = {
