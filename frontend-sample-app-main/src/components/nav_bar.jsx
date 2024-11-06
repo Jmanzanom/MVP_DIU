@@ -79,6 +79,12 @@ export const NavBar = () => {
         >
           Reserva
         </NavLink>
+        <NavLink
+          className={navLinkClass}
+          to='/informacion'
+        >
+          Información
+        </NavLink>
       </div>
     </nav>
   )
