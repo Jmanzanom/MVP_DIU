@@ -35,7 +35,7 @@ export const NavBar = () => {
           src={logoImg} 
           alt="Logo Biblioteca" 
           className="nav-bar__logo"
-          style={{ width: '100px', height: '100px' }} // Aumentar el tamaño del logo
+          style={{ width: 'auto', height: '100px' }} // Aumentar el tamaño del logo
         />
         <div className="nav-bar__title" style={{ color: 'white' }}>
           <span>Biblioteca </span>
