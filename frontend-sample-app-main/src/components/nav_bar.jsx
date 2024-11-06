@@ -35,26 +35,29 @@ export const NavBar = () => {
           src={logoImg} 
           alt="Logo Biblioteca" 
           className="nav-bar__logo"
-          style={{ width: 'auto', height: '100px' }} // Aumentar el tamaño del logo
         />
         <div className="nav-bar__title" style={{ color: 'white' }}>
           <span>Biblioteca </span>
           <small> USM</small>
         </div>
-      </NavLink>
+        </NavLink>
 
       {/* Barra de búsqueda */}
       <div className="nav-bar__search">
-        <input
-          type="text"
-          placeholder="Buscar..."
-          className="nav-bar__search-input"
-          style={{ border: 'none', borderRadius: '4px', padding: '5px', marginRight: '5px' }} // Estilos de input
-        />
-        <span className="nav-bar__search-icon" style={{ cursor: 'pointer' }}>
-          <SearchIcon />
-        </span>
-      </div>
+      <input
+        type="text"
+        placeholder="Buscar..."
+        className="nav-bar__search-input"
+        style={{ border: 'none', borderRadius: '4px', padding: '5px', marginRight: '5px' }} // Estilos de input
+      />
+      <span 
+        className="nav-bar__search-icon" 
+        style={{ cursor: 'pointer' }}
+        onClick={() => window.location.href = '/catalogo'}
+      >
+        <SearchIcon />
+      </span>
+          </div>
 
       {/* Enlaces de navegación */}
       <div className="nav-bar__links">
