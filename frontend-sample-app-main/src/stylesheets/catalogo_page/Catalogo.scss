@@ -1,11 +1,16 @@
-.catalog-container {
+.catalog__container {
     padding: 20px; /* Espaciado alrededor del catálogo */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Espacio entre las tarjetas */
+    justify-content: space-around; /* Distribución uniforme */
+    padding: 20px; /* Espaciado interno del contenedor */
   }
   
   .catalogo__grid {
     display: flex;
-    flex-wrap: wrap; /* Permite que las tarjetas se distribuyan en varias filas */
-    gap: 20px; /* Espaciado entre las tarjetas */
-    justify-content: space-between; /* Espaciado entre tarjetas */
+    flex-wrap: wrap; /* Permite que las tarjetas se ajusten en varias filas */
+    gap: 20px; /* Espacio entre tarjetas */
+    justify-content: space-around; /* Distribuye las tarjetas de manera uniforme */
   }
   

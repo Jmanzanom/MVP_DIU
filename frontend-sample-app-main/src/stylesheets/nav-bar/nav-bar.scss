@@ -5,6 +5,9 @@
   display: flex;
   align-items: center;
   color: white;
+  position: sticky;
+  top: 0; /* Mantiene la barra en la parte superior */
+  z-index: 1000; /* Asegura que la barra esté por encima de otros elementos */
 }
 
 /* Logo y título alineados y espaciados */

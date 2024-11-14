@@ -1,36 +1,42 @@
 .card-libro {
-    border: 1px solid #ddd;
-    border-radius: 8px; /* Bordes redondeados */
-    padding: 15px;
-    text-align: center;
-    background-color: #fff; /* Color de fondo blanco */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-    transition: transform 0.2s; /* Efecto de transformación suave */
-    width: 200px; /* Ancho fijo para todas las tarjetas */
-    height: 300px; /* Alto fijo para todas las tarjetas */
-    display: flex; /* Flexbox para centrar el contenido */
-    flex-direction: column; /* Coloca el contenido en columna */
-    justify-content: space-between; /* Espacio entre elementos */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  text-align: center;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+  width: 200px;
+  height: 350px; /* Ajusta la altura según sea necesario */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &:hover {
+    transform: scale(1.05);
   }
-  
-  .card-libro:hover {
-    transform: scale(1.05); /* Aumenta ligeramente al pasar el mouse */
+
+  &__image {
+    width: 100%;
+    height: auto;
+    max-height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
   }
-  
-  .card-libro__image {
-    width: 100%; /* Ocupa todo el ancho de la tarjeta */
-    height: auto; /* Mantiene la proporción de la imagen */
-    max-height: 150px; /* Altura máxima para la imagen */
-    object-fit: cover; /* Recorta la imagen si es necesario */
-    border-radius: 5px; /* Bordes redondeados para la imagen */
+
+  &__title {
+    font-size: 1.2em;
+    margin: 10px 0 5px;
   }
-  
-  .card-libro__title {
-    font-size: 1.2em; /* Tamaño de fuente más grande */
-    margin: 10px 0 5px; /* Espaciado entre título y autor */
+
+  &__author {
+    color: #555;
   }
-  
-  .card-libro__author {
-    color: #555; /* Color gris para el nombre del autor */
+
+  /* Asegura que el botón esté alineado al final */
+  button {
+    margin-top: auto;
+    width: 100%;
+    border-radius: 5px;
   }
-  
+}

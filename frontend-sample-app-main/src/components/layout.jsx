@@ -6,8 +6,11 @@ import ReservaPage from '../pages/reserva_page'
 import CatalogoPage from '../pages/catalogo_page'
 import InfoPage from '../pages/info_page'
 
-import NavBar from '../components/nav_bar'
+import NavBar from './nav_bar'
+import Footer from './footer'
+
 import styles from '../stylesheets/layout/index.scss'
+
 
 
 const Layout = () => {
@@ -27,9 +30,7 @@ const Layout = () => {
             </Routes>
           </section>
         </main>
-        <footer>
-          <p>© 2024 Biblioteca USM</p>
-        </footer>
+        <Footer/>
       </div>
     </BrowserRouter>
   )

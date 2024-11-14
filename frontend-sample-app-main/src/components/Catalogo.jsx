@@ -52,7 +52,7 @@ function Catalogo() {
   };
 
   return (
-    <div className="catalog-container">
+    <div className="catalogo__container">
       {Object.keys(categorias).map((categoria) => (
         <div key={categoria}>
           <h2>{categoria}</h2>

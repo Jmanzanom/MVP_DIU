@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button } from 'react-bootstrap';
 import ReservarLibro from './ReservarLibro';
+import '../stylesheets/catalogo_page/index.scss';
 
 function CardLibro({ libro }) {
   const [show, setShow] = useState(false);
@@ -10,7 +11,7 @@ function CardLibro({ libro }) {
   const handleShow = () => setShow(true);
 
   const handleReserve = () => {
-    setIsReserved(true); // Actualizamos el estado para reflejar que está reservado
+    setIsReserved(true);
   };
 
   return (
@@ -25,7 +26,7 @@ function CardLibro({ libro }) {
         <p className="card-libro__author">{libro.autor}</p>
         <Button 
           variant={isReserved ? "success" : "primary"} 
-          onClick={handleShow} // Permite abrir el modal siempre
+          onClick={handleShow}
           style={{
             backgroundColor: isReserved ? '#28a745' : '',
             border: isReserved ? '1px solid #28a745' : '',
@@ -39,13 +40,11 @@ function CardLibro({ libro }) {
         show={show} 
         handleClose={handleClose} 
         libro={libro} 
-        isReserved={isReserved} // Pasamos el estado de reserva
-        onReserve={handleReserve} // Pasamos la función de reserva
+        isReserved={isReserved}
+        onReserve={handleReserve}
       />
     </>
   );
 }
 
 export default CardLibro;
-
-
