@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import '../stylesheets/index.scss';
 import { Button } from 'react-bootstrap';
 import ReservarLibro from './ReservarLibro';
 

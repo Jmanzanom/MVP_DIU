@@ -18,15 +18,18 @@ const Layout = () => {
         <NavBar />
         <main className="layout__main">
           <h2 className='layout__subtitle'>Biblioteca USM</h2>
-          <div className='layout__page'>
+          <section className='layout__page'>
             <Routes>
               <Route path='/' element={<HomePage />} />
               <Route path='/reserva' element={<ReservaPage />} />
               <Route path='/catalogo' element={<CatalogoPage />} />
               <Route path='/informacion' element={<InfoPage />} />
             </Routes>
-          </div>
+          </section>
         </main>
+        <footer>
+          <p>© 2024 Biblioteca USM</p>
+        </footer>
       </div>
     </BrowserRouter>
   )
