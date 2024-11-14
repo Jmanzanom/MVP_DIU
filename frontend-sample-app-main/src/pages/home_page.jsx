@@ -4,15 +4,15 @@ import styled from 'styled-components';
 // Contenedor principal de la hero
 const HeroContainer = styled.section`
   width: 100%;
-  height: 60vh;
+  height: 60vh; /* Ocupa 60% de la altura de la pantalla */
   position: relative;
   overflow: hidden;
-  background-color: #1C3144;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
 
+  /* Asegura que la sección sea responsiva */
   @media (max-width: 768px) {
-    height: auto;
+    height: auto; /* Permite que se ajuste en pantallas pequeñas */
   }
 `;
 
@@ -24,22 +24,22 @@ const HeroText = styled.div`
   transform: translate(-50%, -50%);
   text-align: center;
   padding: 40px;
-  max-width: 800px;
+  max-width: 600px;
   width: 100%;
   z-index: 1;
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 8px;
 
   h1 {
-    font-size: 3.2rem;
+    font-size: 2.8rem;
     margin: 0;
-    color: #1C3144;
+    color: #333;
   }
 
   p {
-    font-size: 1.4rem;
-    margin-top: 20px;
-    color: #4B5563;
+    font-size: 1.2rem;
+    margin-top: 10px;
+    color: #666;
   }
 
   @media (max-width: 768px) {
@@ -47,45 +47,7 @@ const HeroText = styled.div`
   }
 `;
 
-const ExploreOpportunities = () => (
-  <div>
-    <h2>Explora Oportunidades</h2>
-    <p>Descubre las diferentes opciones de ayudantías disponibles en cada departamento.</p>
-    {/* Agrega los enlaces o componentes correspondientes */}
-  </div>
-);
-
-const PostuleFacilmente = () => (
-  <div>
-    <h2>Postula Fácilmente</h2>
-    <p>Proceso simplificado de postulación para ayudantías en todos los departamentos.</p>
-    {/* Agrega el formulario o los componentes correspondientes */}
-  </div>
-);
-
-const RealTimeTracking = () => (
-  <div>
-    <h2>Seguimiento en Tiempo Real</h2>
-    <p>Mantente informado sobre el estado de tus postulaciones a ayudantías.</p>
-    {/* Agrega los componentes o la funcionalidad de seguimiento */}
-  </div>
-);
-
-const Homepage = () => {
-  return (
-    <HeroContainer>
-      <HeroImage />
-      <HeroText>
-        <h1>Bienvenido a la Biblioteca</h1>
-        <p>Explora recursos académicos, espacios de estudio y mucho más.</p>
-      </HeroText>
-      <ExploreOpportunities />
-      <PostuleFacilmente />
-      <RealTimeTracking />
-    </HeroContainer>
-  );
-};
-
+// Contenedor de la imagen
 const HeroImage = styled.div`
   width: 100%;
   height: 100%;
@@ -94,5 +56,18 @@ const HeroImage = styled.div`
   background-position: center;
   background-repeat: no-repeat;
 `;
+
+// Componente Homepage
+const Homepage = () => {
+  return (
+    <HeroContainer>
+      <HeroImage />
+      <HeroText>
+        <h1>Bienvenidos a la Biblioteca USM</h1>
+        <p>Explora recursos académicos, espacios de estudio y mucho más para apoyar tu camino académico.</p>
+      </HeroText>
+    </HeroContainer>
+  );
+};
 
 export default Homepage;
