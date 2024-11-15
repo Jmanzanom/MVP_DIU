@@ -1,7 +1,6 @@
-
 .footer {
     background-color: #1e3a8a; /* Azul oscuro */
-    color: #fff;
+    color: #f0f0f0; /* Color más claro para mejor contraste */
     padding: 20px 0;
     text-align: center;
 
@@ -22,7 +21,7 @@
             margin: 0 15px;
 
             &__link {
-                color: #fff;
+                color: #e0e0e0; /* Color más claro para mejor contraste */
                 text-decoration: none;
                 transition: color 0.3s;
 
@@ -38,7 +37,7 @@
 
         &__icon {
             margin: 0 10px;
-            color: #fff;
+            color: #e0e0e0; /* Color más claro para mejor contraste */
             transition: color 0.3s;
 
             &:hover {
@@ -50,5 +49,11 @@
     &__copyright {
         margin-top: 20px;
         font-size: 14px;
+    }
+
+    p{
+        font-size: 1rem;
+        color: #ffff;
+        margin-bottom: 10px;
     }
 }

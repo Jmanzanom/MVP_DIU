@@ -9,7 +9,7 @@ import InfoPage from '../pages/info_page'
 import NavBar from './nav_bar'
 import Footer from './footer'
 
-import styles from '../stylesheets/layout/index.scss'
+import styles from '../stylesheets/index.scss'
 
 
 

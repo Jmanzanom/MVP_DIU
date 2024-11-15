@@ -1,0 +1,70 @@
+// Contenedor principal
+.library-info, .find-book, .book-signature {
+    margin: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .library-info h2, .find-book h2, .book-signature h3 {
+    color: #1e3a8a;
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  
+  .library-info h3, .find-book h3 {
+    color: #333;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .floors {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 20px;
+  }
+  
+  .floor {
+    max-width: 300px;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .floor h4 {
+    font-size: 1.4rem;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  ul {
+    padding-left: 20px;
+  }
+  
+  li {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.6;
+  }
+  
+  .book-signature p {
+    font-size: 1rem;
+    color: #666;
+    margin: 5px 0;
+  }
+  
+  .book-signature strong {
+    color: #333;
+  }
+  
+  // Ajustes responsivos
+  @media (max-width: 768px) {
+    .floors {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+  

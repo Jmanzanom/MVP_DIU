@@ -1,6 +1,6 @@
 import React from 'react';
 import Stack from 'react-bootstrap/Stack';
-import '../stylesheets/home_page/index.scss';
+
 
 const Homepage = () => {
   return (

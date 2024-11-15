@@ -4,13 +4,11 @@
 @import './nav-bar/index.scss';
 @import './footer/index.scss';
 @import './reserva_page/index.scss';
+@import './info_page/index.scss';
 @import './catalogo_page/index.scss';
 @import 'bootstrap/dist/css/bootstrap.min.css';
 @import "bootstrap/scss/bootstrap";
-html, body {
-  padding: 0;
-  margin: 0;
-}
+
 
 $theme-colors:(
     'primary': #1e3a8a
