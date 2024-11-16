@@ -81,6 +81,9 @@ export const NavBar = () => {
         <NavLink className={navLinkClass} to="/informacion">
           Información
         </NavLink>
+        <NavLink className={navLinkClass} to="/usuario">
+          Usuario
+        </NavLink>
       </div>
     </nav>
   );

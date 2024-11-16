@@ -5,6 +5,7 @@ import HomePage from '../pages/home_page'
 import ReservaPage from '../pages/reserva_page'
 import CatalogoPage from '../pages/catalogo_page'
 import InfoPage from '../pages/info_page'
+import UsuarioPage from '../pages/usuario_page'
 
 import NavBar from './nav_bar'
 import Footer from './footer'
@@ -27,6 +28,7 @@ const Layout = () => {
               <Route path='/reserva' element={<ReservaPage />} />
               <Route path='/catalogo' element={<CatalogoPage />} />
               <Route path='/informacion' element={<InfoPage />} />
+              <Route path='/usuario' element={< UsuarioPage/>} />
             </Routes>
           </section>
         </main>

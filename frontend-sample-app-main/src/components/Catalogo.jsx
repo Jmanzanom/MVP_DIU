@@ -7,7 +7,7 @@ import elantris from "../assets/elantris.jpg";
 import brumas from "../assets/brumas.jpg";
 import senorAnillos from "../assets/anillos.jpg"; 
 
-function Catalogo() {
+function Catalogo({ reservas, onReserve }) {
   const categorias = {
     "Accion": [
       {
@@ -58,7 +58,12 @@ function Catalogo() {
           <h2>{categoria}</h2>
           <div className="catalogo__grid">
             {categorias[categoria].map((libro) => (
-              <CardLibro key={libro.id} libro={libro} />
+              <CardLibro 
+                key={libro.id} 
+                libro={libro} 
+                reservas={reservas}
+                onReserve={onReserve}
+              />
             ))}
           </div>
         </div>

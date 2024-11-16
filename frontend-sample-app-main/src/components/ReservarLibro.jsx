@@ -18,6 +18,16 @@ const ReservarLibro = ({ show, handleClose, libro, isReserved, onReserve }) => {
   const loanPeriod = Math.ceil((returnDate - today) / (1000 * 60 * 60 * 24));
 
   const handleConfirm = () => {
+    const reservasActuales = JSON.parse(localStorage.getItem('reservas')) || [];
+  const nuevaReserva = {
+    id: libro.id,
+    nombre: libro.nombre,
+    autor: libro.autor,
+    imagen: libro.imagen,
+    fechaRetiro: today.toLocaleDateString(),
+    fechaDevolucion: returnDate.toLocaleDateString()
+  };
+  localStorage.setItem('reservas', JSON.stringify([...reservasActuales, nuevaReserva]));
     onReserve();
     setIsConfirming(false);
     handleClose();
@@ -108,8 +118,3 @@ const ReservarLibro = ({ show, handleClose, libro, isReserved, onReserve }) => {
 };
 
 export default ReservarLibro;
-
-
-
-
-

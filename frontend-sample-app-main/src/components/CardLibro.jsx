@@ -1,17 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from 'react-bootstrap';
 import ReservarLibro from './ReservarLibro';
 import '../stylesheets/catalogo_page/index.scss';
 
-function CardLibro({ libro }) {
+function CardLibro({ libro, reservas, onReserve }) {
   const [show, setShow] = useState(false);
   const [isReserved, setIsReserved] = useState(false);
+
+  useEffect(() => {
+    // Verificar si el libro ya está reservado
+    const isBookReserved = reservas.some(reserva => reserva.id === libro.id);
+    setIsReserved(isBookReserved);
+  }, [libro.id, reservas]);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const handleReserve = () => {
-    setIsReserved(true);
+    // Reservar el libro
+    onReserve(libro);
   };
 
   return (
@@ -32,6 +39,7 @@ function CardLibro({ libro }) {
             border: isReserved ? '1px solid #28a745' : '',
             color: 'white'
           }}
+          disabled={isReserved} // Deshabilitar si está reservado
         >
           {isReserved ? "Reservado" : "Reservar"}
         </Button>
