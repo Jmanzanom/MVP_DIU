@@ -3,18 +3,29 @@ import React, { useState } from 'react';
 const createTimeSlots = (startHour, endHour) => {
   const timeSlots = [];
   for (let hour = startHour; hour < endHour; hour++) {
-    const formattedHour = hour < 10 ? `0${hour}:00` : `${hour}:00`;
-    const nextHour = hour + 1 < 10 ? `0${hour + 1}:00` : `${hour + 1}:00`;
-    timeSlots.push({ time: `${formattedHour} - ${nextHour}`, available: Math.random() >= 0.5 });
+    timeSlots.push({
+      time: `${hour < 10 ? `0${hour}` : hour}:00`,
+      available: Math.random() > 0.3, // 70% de disponibilidad
+    });
   }
   return timeSlots;
 };
 
 const dummyAvailability = {
   "Biblioteca Campus San Joaquín": {
-    "2-4 personas": createTimeSlots(8, 20),
-    "6+ personas": createTimeSlots(8, 20), 
-  }
+    "2-4 personas": [
+      { name: "Estación 1", slots: createTimeSlots(8, 20) },
+      { name: "Estación 2", slots: createTimeSlots(8, 20) },
+      { name: "Estación 3", slots: createTimeSlots(8, 20) },
+      { name: "Estación 4", slots: createTimeSlots(8, 20) },
+      { name: "Estación 5", slots: createTimeSlots(8, 20) },
+      { name: "Estación 6", slots: createTimeSlots(8, 20) },
+    ],
+    "6+ personas": [
+      { name: "Sala 1", slots: createTimeSlots(8, 20) },
+      { name: "Sala 2", slots: createTimeSlots(8, 20) },
+    ],
+  },
 };
 
 export const ReservaPage = () => {
@@ -22,48 +33,45 @@ export const ReservaPage = () => {
   const [capacity, setCapacity] = useState('');
   const [date, setDate] = useState('');
   const [availability, setAvailability] = useState([]);
-  const [selectedTimes, setSelectedTimes] = useState([]);
+  const [selectedBlocks, setSelectedBlocks] = useState([]);
   const [rol, setRol] = useState('');
 
   const handleShowAvailability = () => {
     if (capacity && date) {
       setAvailability(dummyAvailability[location][capacity]);
-      setSelectedTimes([]); // Reiniciar selección
+      setSelectedBlocks([]); // Reiniciar selección
     } else {
       alert('Por favor, selecciona la capacidad y la fecha.');
     }
   };
 
-  const handleTimeSelect = (time) => {
-    if (selectedTimes.includes(time)) {
-      setSelectedTimes(selectedTimes.filter(t => t !== time));
+  const handleBlockSelect = (stationIndex, time) => {
+    const blockId = `${stationIndex}-${time}`;
+    if (selectedBlocks.includes(blockId)) {
+      setSelectedBlocks(selectedBlocks.filter((id) => id !== blockId));
     } else {
-      setSelectedTimes([...selectedTimes, time]);
+      setSelectedBlocks([...selectedBlocks, blockId]);
     }
-  };
-
-  const isValidRol = (rol) => {
-    const rolRegex = /^\d{9}-[0-9Kk]$/; // Acepta 'K' o 'k'
-    return rolRegex.test(rol);
   };
 
   const handleReserve = () => {
-    if (!isValidRol(rol)) {
+    if (!/^\d{9}-[0-9Kk]$/.test(rol)) {
       alert('Por favor, introduce un rol válido en el formato: 9 números - 0-9 o K/k');
       return;
     }
-    
-    if (selectedTimes.length > 0) {
-      alert(`Reserva realizada para los horarios: ${selectedTimes.join(', ')} con el rol: ${rol}`);
+
+    if (selectedBlocks.length > 0) {
+      alert(`Reserva realizada para los bloques: ${selectedBlocks.join(', ')} con el rol: ${rol}`);
     } else {
-      alert('Por favor, selecciona al menos un horario para reservar.');
+      alert('Por favor, selecciona al menos un bloque para reservar.');
     }
   };
 
   return (
-    <div className='reservation-system'>
+    <div className="reservation-system">
       <h1>Nueva reserva</h1>
 
+      {/* Localización */}
       <label>
         Localización:
         <select value={location} disabled>
@@ -72,58 +80,86 @@ export const ReservaPage = () => {
       </label>
       <br />
 
+      {/* Capacidad */}
       <label>
         Capacidad:
         <select value={capacity} onChange={(e) => setCapacity(e.target.value)}>
           <option value="">Seleccione la capacidad</option>
           <option value="2-4 personas">2 - 4 personas máximo</option>
-          <option value="6+ personas">Space For 6+ people</option>
+          <option value="6+ personas">6+ personas</option>
         </select>
       </label>
       <br />
 
+      {/* Fecha */}
       <label>
         Fecha:
         <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
       </label>
       <br /><br />
 
-      <button onClick={handleShowAvailability}>
-        Mostrar disponibilidad
-      </button>
+      {/* Botón para mostrar disponibilidad */}
+      <button onClick={handleShowAvailability}>Mostrar disponibilidad</button>
 
+      {/* Tabla de disponibilidad */}
       {availability.length > 0 && (
-        <div className='availability'>
+        <div className="availability">
           <h2>{capacity} @ {location}</h2>
           <p>Opciones disponibles para el {date}:</p>
-          <table className='availability-table'>
+
+          {/* Leyenda de colores */}
+          <div className="legend">
+            <span style={{ display: 'inline-block', backgroundColor: 'green', color: 'white', padding: '5px', marginRight: '10px' }}>
+              Disponible
+            </span>
+            <span style={{ display: 'inline-block', backgroundColor: 'red', color: 'white', padding: '5px', marginRight: '10px' }}>
+              Ocupado
+            </span>
+            <span style={{ display: 'inline-block', backgroundColor: 'orange', color: 'white', padding: '5px', marginRight: '10px' }}>
+              Seleccionado
+            </span>
+          </div>
+          <br />
+
+          <table className="availability-table">
             <thead>
               <tr>
-                <th>Horario</th>
-                <th>Seleccionar</th>
+                <th>Estación</th>
+                {availability[0].slots.map((slot, index) => (
+                  <th key={index}>{slot.time}</th>
+                ))}
               </tr>
             </thead>
             <tbody>
-              {availability.map((slot, index) => (
-                <tr key={index}>
-                  <td>{slot.time}</td>
-                  <td>
-                    {slot.available ? (
-                      <input
-                        type="checkbox"
-                        checked={selectedTimes.includes(slot.time)}
-                        onChange={() => handleTimeSelect(slot.time)}
-                      />
-                    ) : (
-                      'No Disponible'
-                    )}
-                  </td>
+              {availability.map((station, stationIndex) => (
+                <tr key={stationIndex}>
+                  <td>{station.name}</td>
+                  {station.slots.map((slot, timeIndex) => (
+                    <td
+                      key={timeIndex}
+                      style={{
+                        backgroundColor: selectedBlocks.includes(`${stationIndex}-${slot.time}`)
+                          ? 'orange'
+                          : slot.available
+                          ? 'green'
+                          : 'red',
+                        cursor: slot.available ? 'pointer' : 'not-allowed',
+                        color: 'white',
+                        textAlign: 'center',
+                      }}
+                      onClick={() =>
+                        slot.available && handleBlockSelect(stationIndex, slot.time)
+                      }
+                    >
+                      {slot.available ? 'Disponible' : 'Ocupado'}
+                    </td>
+                  ))}
                 </tr>
               ))}
             </tbody>
           </table>
 
-          {}
+          {/* Rol y botón de reserva */}
           <label>
             Rol:
             <input
@@ -135,12 +171,11 @@ export const ReservaPage = () => {
           </label>
           <br /><br />
 
-          <button onClick={handleReserve}>
-            Solicitar reserva
-          </button>
+          <button onClick={handleReserve}>Solicitar reserva</button>
         </div>
       )}
     </div>
   );
 };
+
 export default ReservaPage;
