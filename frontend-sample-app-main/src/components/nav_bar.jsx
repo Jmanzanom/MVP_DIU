@@ -82,7 +82,7 @@ export const NavBar = () => {
           Información
         </NavLink>
         <NavLink className={navLinkClass} to="/usuario">
-          Usuario
+          Mi sesion
         </NavLink>
       </div>
     </nav>

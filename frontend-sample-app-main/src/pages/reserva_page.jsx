@@ -61,7 +61,8 @@ export const ReservaPage = () => {
     }
 
     if (selectedBlocks.length > 0) {
-      alert(`Reserva realizada para los bloques: ${selectedBlocks.join(', ')} con el rol: ${rol}`);
+      const reservedTimes = selectedBlocks.map(block => block.split('-')[1]);
+      alert(`Reserva realizada para el horario: ${reservedTimes.join(', ')} con el rol: ${rol}`);
     } else {
       alert('Por favor, selecciona al menos un bloque para reservar.');
     }
