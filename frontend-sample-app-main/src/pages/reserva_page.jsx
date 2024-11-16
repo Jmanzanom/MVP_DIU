@@ -120,44 +120,45 @@ export const ReservaPage = () => {
             </span>
           </div>
           <br />
-
-          <table className="availability-table">
-            <thead>
-              <tr>
-                <th>Estación</th>
-                {availability[0].slots.map((slot, index) => (
-                  <th key={index}>{slot.time}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {availability.map((station, stationIndex) => (
-                <tr key={stationIndex}>
-                  <td>{station.name}</td>
-                  {station.slots.map((slot, timeIndex) => (
-                    <td
-                      key={timeIndex}
-                      style={{
-                        backgroundColor: selectedBlocks.includes(`${stationIndex}-${slot.time}`)
-                          ? 'orange'
-                          : slot.available
-                          ? 'green'
-                          : 'red',
-                        cursor: slot.available ? 'pointer' : 'not-allowed',
-                        color: 'white',
-                        textAlign: 'center',
-                      }}
-                      onClick={() =>
-                        slot.available && handleBlockSelect(stationIndex, slot.time)
-                      }
-                    >
-                      {slot.available ? 'Disponible' : 'Ocupado'}
-                    </td>
+          <div className='scroll-container'>
+            <table className="availability-table">
+              <thead>
+                <tr>
+                  <th>Estación</th>
+                  {availability[0].slots.map((slot, index) => (
+                    <th key={index}>{slot.time}</th>
                   ))}
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {availability.map((station, stationIndex) => (
+                  <tr key={stationIndex}>
+                    <td>{station.name}</td>
+                    {station.slots.map((slot, timeIndex) => (
+                      <td
+                        key={timeIndex}
+                        style={{
+                          backgroundColor: selectedBlocks.includes(`${stationIndex}-${slot.time}`)
+                            ? 'orange'
+                            : slot.available
+                            ? 'green'
+                            : 'red',
+                          cursor: slot.available ? 'pointer' : 'not-allowed',
+                          color: 'white',
+                          textAlign: 'center',
+                        }}
+                        onClick={() =>
+                          slot.available && handleBlockSelect(stationIndex, slot.time)
+                        }
+                      >
+                        {slot.available ? 'Disponible' : 'Ocupado'}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
           {/* Rol y botón de reserva */}
           <label>

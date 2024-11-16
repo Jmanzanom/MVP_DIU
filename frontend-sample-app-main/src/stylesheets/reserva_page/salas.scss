@@ -81,6 +81,11 @@
     color: #666;
     margin-bottom: 10px;
   }
+  .scroll-container {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* Mejora la experiencia en dispositivos móviles */
+  }
   
   .availability-table {
     width: 100%;
