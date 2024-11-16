@@ -76,7 +76,7 @@ export const NavBar = () => {
           Catálogo
         </NavLink>
         <NavLink className={navLinkClass} to="/reserva">
-          Reserva
+          Reserva de salas
         </NavLink>
         <NavLink className={navLinkClass} to="/informacion">
           Información
