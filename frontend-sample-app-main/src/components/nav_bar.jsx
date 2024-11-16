@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import logoImg from '../assets/logo.png';
 import '../stylesheets/nav-bar/index.scss';
 
-// SVG del ícono de búsqueda como componente
 const SearchIcon = () => (
   <svg 
     width="20" 
@@ -21,75 +20,70 @@ const SearchIcon = () => (
 );
 
 export const NavBar = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   const navLinkClass = ({ isActive }) => {
     const classes = ['nav-bar__link'];
     if (isActive) classes.push('nav-bar__link--active');
     return classes.join(' ');
-  }
+  };
 
   return (
-    <nav className='nav-bar'> {/* Color de fondo azul */}
+    <nav className="nav-bar">
       {/* Logo y Título */}
       <NavLink to="/" className="nav-bar__brand">
-        <img 
-          src={logoImg} 
-          alt="Logo Biblioteca" 
-          className="nav-bar__logo"
-        />
-        <div className="nav-bar__title" style={{ color: 'white' }}>
+        <img src={logoImg} alt="Logo Biblioteca" className="nav-bar__logo" />
+        <div className="nav-bar__title">
           <span>Biblioteca </span>
-          <small> USM</small>
+          <small>USM</small>
         </div>
-        </NavLink>
+      </NavLink>
 
       {/* Barra de búsqueda */}
       <div className="nav-bar__search">
-      <input
-        type="text"
-        placeholder="Buscar..."
-        className="nav-bar__search-input"
-        style={{ border: 'none', borderRadius: '4px', padding: '5px', marginRight: '5px' }} // Estilos de input
-      />
-      <span 
-        className="nav-bar__search-icon" 
-        style={{ cursor: 'pointer' }}
-        onClick={() => window.location.href = '/catalogo'}
+        <input
+          type="text"
+          placeholder="Buscar..."
+          className="nav-bar__search-input"
+        />
+        <span 
+          className="nav-bar__search-icon"
+          onClick={() => window.location.href = '/catalogo'}
+        >
+          <SearchIcon />
+        </span>
+      </div>
+
+      {/* Botón Hamburguesa */}
+      <button 
+        className="nav-bar__toggle" 
+        onClick={toggleMenu}
+        aria-label="Abrir menú"
       >
-        <SearchIcon />
-      </span>
-          </div>
+        ☰
+      </button>
 
       {/* Enlaces de navegación */}
-      <div className="nav-bar__links">
-        <NavLink
-          className={navLinkClass}
-          to='/'
-        >
+      <div className={`nav-bar__links ${isMenuOpen ? 'nav-bar__links--open' : ''}`}>
+        <NavLink className={navLinkClass} to="/">
           Inicio
         </NavLink>
-        <NavLink
-          className={navLinkClass}
-          to='/catalogo'
-        >
+        <NavLink className={navLinkClass} to="/catalogo">
           Catálogo
         </NavLink>
-        <NavLink
-          className={navLinkClass}
-          to='/reserva'
-        >
+        <NavLink className={navLinkClass} to="/reserva">
           Reserva
         </NavLink>
-        <NavLink
-          className={navLinkClass}
-          to='/informacion'
-        >
+        <NavLink className={navLinkClass} to="/informacion">
           Información
         </NavLink>
       </div>
     </nav>
-  )
-}
+  );
+};
 
 export default NavBar;
-
-

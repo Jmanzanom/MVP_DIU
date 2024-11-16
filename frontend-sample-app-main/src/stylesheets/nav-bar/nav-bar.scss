@@ -1,36 +1,52 @@
-/* Estilos generales para la barra de navegación */
 .nav-bar {
   background-color: #1e3a8a; /* Azul oscuro */
   padding: 0.75rem 1.5rem;
   display: flex;
   align-items: center;
-  color: white;
+  justify-content: space-between;
   position: sticky;
-  top: 0; /* Mantiene la barra en la parte superior */
-  z-index: 1000; /* Asegura que la barra esté por encima de otros elementos */
+  top: 0;
+  z-index: 1000;
+  color: white;
 }
 
-/* Logo y título alineados y espaciados */
+/* Botón hamburguesa */
+.nav-bar__toggle {
+  display: none;
+  background: #012b4b;
+  color: white;
+  border: none;
+  border-radius: 50px; /* Bordes redondeados */
+  padding: 0.5rem 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
+  transition: background-color 0.3s ease;
+}
+
+.nav-bar__toggle:hover {
+  background-color: #01406b;
+}
+
+/* Logo y título */
 .nav-bar__brand {
   display: flex;
   align-items: center;
-  gap: 0.5rem; /* Espacio entre el logo y el texto */
+  gap: 0.5rem;
   text-decoration: none;
   color: white;
 }
 
-/* Ajuste de tamaño del logo */
 .nav-bar__logo {
-  width: 100px; /* Aumentar tamaño del logo */
-  height: auto; /* Mantener la proporción */
+  width: 100px;
+  height: auto;
 }
 
-/* Título principal con subtexto más pequeño */
 .nav-bar__title {
   font-size: 1rem;
   font-weight: bold;
   line-height: 1.2;
-  color: white; /* Asegura que el texto sea blanco */
+  color: white;
 }
 
 .nav-bar__title small {
@@ -39,9 +55,8 @@
   margin-top: -4px;
 }
 
-/* Barra de búsqueda centrada y con bordes suaves */
+/* Barra de búsqueda */
 .nav-bar__search {
-  position: relative;
   flex: 1;
   max-width: 300px;
   display: flex;
@@ -49,15 +64,14 @@
   background-color: #f0f1f3;
   border-radius: 15px;
   padding: 0.25rem 0.75rem;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
 }
 
 .nav-bar__search-input {
   width: 100%;
   border: none;
-  background: none;
   outline: none;
+  background: none;
   color: #333;
   font-size: 0.9rem;
 }
@@ -68,14 +82,14 @@
   margin-left: 0.5rem;
 }
 
-/* Enlaces de navegación con espaciado uniforme */
+/* Enlaces de navegación */
 .nav-bar__links {
   display: flex;
   gap: 1rem;
 }
 
 .nav-bar__link {
-  color: white; /* Enlaces en blanco */
+  color: white;
   text-decoration: none;
   font-size: 0.9rem;
   padding: 0.5rem 0.75rem;
@@ -83,32 +97,34 @@
   transition: background-color 0.3s ease;
 }
 
-/* Efecto hover y estilo del enlace activo */
 .nav-bar__link:hover {
   background-color: #012b4b;
 }
 
 .nav-bar__link--active {
-  background-color: #012b4b; /* Fondo oscuro para el enlace activo */
-  color: white; /* Asegura que el texto sea blanco */
+  background-color: #012b4b;
   font-weight: bold;
-  border-radius: 5px;
 }
 
-/* Responsive: ajustes para pantallas pequeñas */
+/* Responsivo */
 @media (max-width: 768px) {
-  .nav-bar {
-    padding: 0.75rem 1rem;
-    flex-wrap: wrap;
+  .nav-bar__toggle {
+    display: block;
   }
-  
-  .nav-bar__search {
-    order: 3;
-    flex: 1 1 100%;
-    margin-top: 1rem;
-  }
-  
+
   .nav-bar__links {
+    display: none;
+    flex-direction: column;
     gap: 0.5rem;
+    background-color: #1e3a8a;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .nav-bar__links--open {
+    display: flex;
   }
 }
