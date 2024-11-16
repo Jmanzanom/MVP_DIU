@@ -35,7 +35,7 @@ const UsuarioPage = () => {
     <div className="usuario-page">
         <h1>Mis Reservas</h1>
         {uniqueReservas.length === 0 ? (
-        <p>No has reservado ningún libro todavía.</p>
+        <p>No has reservado ningún libro ni sala todavía.</p>
         ) : (
         <div className="reservas-lista">
             {uniqueReservas.map((reserva) => (
