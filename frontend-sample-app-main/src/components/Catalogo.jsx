@@ -78,11 +78,16 @@ function Catalogo({ reservas, onReserve }) {
     await Promise.all(requests);
     setCategorias(updatedCategorias);
   };
-
+  
   const filterBooks = (query) => {
+    const normalizeString = (str) => {
+      return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+    };
+  
+    const normalizedQuery = normalizeString(query);
     const allBooks = Object.values(categorias).flat();
     const filtered = allBooks.filter(libro =>
-      libro.nombre.toLowerCase().includes(query.toLowerCase())
+      normalizeString(libro.nombre).includes(normalizedQuery)
     );
     setFilteredBooks(filtered);
   };
@@ -100,16 +105,27 @@ function Catalogo({ reservas, onReserve }) {
 
   return (
     <div className="catalogo__container">
-      {filteredBooks.length === 0 && searchQuery ? (
-        <p>No se encontraron libros con el término "{searchQuery}".</p>
+      {searchQuery ? (
+        filteredBooks.length === 0 ? (
+          <p>No se encontraron libros con el término "{searchQuery}".</p>
+        ) : (
+          <div className="catalogo__grid">
+            {filteredBooks.map((libro) => (
+              <CardLibro
+                key={libro.id}
+                libro={libro}
+                reservas={reservas}
+                onReserve={onReserve}
+              />
+            ))}
+          </div>
+        )
       ) : (
         displayedCategories.map((categoria) => (
           <div key={categoria}>
             <h2>{categoria}</h2>
             <div className="catalogo__grid">
-              {(
-                searchQuery ? filteredBooks : categorias[categoria]
-              ).map((libro) => (
+              {categorias[categoria].map((libro) => (
                 <CardLibro
                   key={libro.id}
                   libro={libro}
@@ -121,17 +137,19 @@ function Catalogo({ reservas, onReserve }) {
           </div>
         ))
       )}
-      <div className="pagination">
-        {Array.from({ length: totalPages }, (_, index) => (
-          <button
-            key={index + 1}
-            onClick={() => handlePageChange(index + 1)}
-            disabled={currentPage === index + 1}
-          >
-            {index + 1}
-          </button>
-        ))}
-      </div>
+      {!searchQuery && (
+        <div className="pagination">
+          {Array.from({ length: totalPages }, (_, index) => (
+            <button
+              key={index + 1}
+              onClick={() => handlePageChange(index + 1)}
+              disabled={currentPage === index + 1}
+            >
+              {index + 1}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
