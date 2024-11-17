@@ -19,6 +19,7 @@ const CatalogoPage = () => {
   return (
     <div className="catalogo-page">
       <h1 className="catalogo-title">Catálogo de Libros</h1>
+      <hr />
       <Catalogo reservas={reservas} onReserve={handleReserve} />
     </div>
   );

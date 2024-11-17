@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Modal } from 'react-bootstrap'; // Asegúrate de tener react-bootstrap instalado
 
 const createTimeSlots = (startHour, endHour) => {
   const timeSlots = [];
@@ -35,6 +36,9 @@ export const ReservaPage = () => {
   const [availability, setAvailability] = useState([]);
   const [selectedBlocks, setSelectedBlocks] = useState([]);
   const [rol, setRol] = useState('');
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [reservationDetails, setReservationDetails] = useState(null);
 
   const handleShowAvailability = () => {
     if (capacity && date) {
@@ -62,10 +66,32 @@ export const ReservaPage = () => {
 
     if (selectedBlocks.length > 0) {
       const reservedTimes = selectedBlocks.map(block => block.split('-')[1]);
-      alert(`Reserva realizada para el horario: ${reservedTimes.join(', ')} con el rol: ${rol}`);
+      const selectedStations = selectedBlocks.map(block => {
+        const [stationIndex, time] = block.split('-');
+        return {
+          station: availability[stationIndex].name,
+          time,
+        };
+      });
+
+      setReservationDetails({
+        rol,
+        selectedStations,
+        date,
+      });
+      setShowConfirmModal(true);
     } else {
       alert('Por favor, selecciona al menos un bloque para reservar.');
     }
+  };
+
+  const handleConfirmReservation = () => {
+    setShowConfirmModal(false);
+    setShowSuccessModal(true);
+  };
+
+  const handleCloseSuccessModal = () => {
+    setShowSuccessModal(false);
   };
 
   return (
@@ -108,7 +134,6 @@ export const ReservaPage = () => {
           <h2>{capacity} @ {location}</h2>
           <p>Opciones disponibles para el {date}:</p>
 
-          {/* Leyenda de colores */}
           <div className="legend">
             <span style={{ display: 'inline-block', backgroundColor: 'green', color: 'white', padding: '5px', marginRight: '10px' }}>
               Disponible
@@ -176,6 +201,42 @@ export const ReservaPage = () => {
           <button onClick={handleReserve}>Solicitar reserva</button>
         </div>
       )}
+
+      {/* Modal de confirmación */}
+      <Modal show={showConfirmModal} onHide={() => setShowConfirmModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirmar reserva</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p><strong>Fecha:</strong> {reservationDetails?.date}</p>
+          {reservationDetails?.selectedStations.map((station, index) => (
+            <p key={index}><strong>Sala/Estación:</strong> {station.station} <strong>Horario:</strong> {station.time}</p>
+          ))}
+          <p><strong>Rol:</strong> {reservationDetails?.rol}</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <button onClick={handleConfirmReservation}>Confirmar</button>
+          <button onClick={() => setShowConfirmModal(false)}>Cancelar</button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Modal de éxito */}
+      <Modal show={showSuccessModal} onHide={handleCloseSuccessModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Reserva Confirmada</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>¡La reserva fue confirmada exitosamente!</p>
+          <p><strong>Fecha:</strong> {reservationDetails?.date}</p>
+          {reservationDetails?.selectedStations.map((station, index) => (
+            <p key={index}><strong>Sala/Estación:</strong> {station.station} <strong>Horario:</strong> {station.time}</p>
+          ))}
+          <p><strong>Rol:</strong> {reservationDetails?.rol}</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <button onClick={handleCloseSuccessModal}>Cerrar</button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };
