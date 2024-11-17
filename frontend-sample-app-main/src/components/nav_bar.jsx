@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';  // Importa useNavigate
 import logoImg from '../assets/logo.png';
 import '../stylesheets/nav-bar/index.scss';
+import { User } from 'lucide-react';
 
 const SearchIcon = () => (
   <svg 
@@ -21,9 +22,24 @@ const SearchIcon = () => (
 
 export const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");  // Estado para la búsqueda
+  const navigate = useNavigate();  // Hook para navegar entre rutas
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleSearch = () => {
+    if (searchQuery.trim()) {
+      // Redirigir al catálogo con el término de búsqueda como parámetro de consulta
+      navigate(`/catalogo?search=${searchQuery}`);
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch();  // Llama a handleSearch solo si se presiona Enter
+    }
   };
 
   const navLinkClass = ({ isActive }) => {
@@ -49,10 +65,13 @@ export const NavBar = () => {
           type="text"
           placeholder="Buscar..."
           className="nav-bar__search-input"
+          value={searchQuery}  // Vincula el valor del input con el estado
+          onChange={(e) => setSearchQuery(e.target.value)}  // Actualiza el estado con el texto ingresado
+          onKeyDown={handleKeyDown}  // Captura la tecla presionada
         />
         <span 
           className="nav-bar__search-icon"
-          onClick={() => window.location.href = '/catalogo'}
+          onClick={handleSearch}  // Llama a handleSearch al hacer clic
         >
           <SearchIcon />
         </span>
@@ -76,12 +95,13 @@ export const NavBar = () => {
           Catálogo
         </NavLink>
         <NavLink className={navLinkClass} to="/reserva">
-          Reserva de salas
+          Reserva Salas
         </NavLink>
         <NavLink className={navLinkClass} to="/informacion">
           Información
         </NavLink>
         <NavLink className={navLinkClass} to="/usuario">
+          <User size={18} />
           Mi sesion
         </NavLink>
       </div>

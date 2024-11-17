@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Facebook, Instagram, Twitter } from 'lucide-react';
 
 // Estilos del contenedor principal del footer
 const FooterContainer = styled.footer`
@@ -92,6 +93,14 @@ const Footer = () => {
           <ListItem><Link href="https://aula.usm.cl/portada/index.php">Aula USM</Link></ListItem>
           <ListItem><Link href="https://autoservicio.usm.cl/PROD/twbkwbis.P_GenMenu?name=homepage">Portal de Autoservicio Institucional</Link></ListItem>
           <ListItem><Link href="https://dti.usm.cl/">Dirección de Tecnologías de la Información</Link></ListItem>
+        </List>
+      </Section>
+      <Section>
+        <SectionTitle>REDES SOCIALES</SectionTitle>
+        <List>
+          <ListItem><SocialIcon><Facebook className="footer__social__icon" onClick={() => window.location.href = 'https://www.facebook.com/bibliotecausmsanjoaquin'}/> Facebook</SocialIcon></ListItem>
+          <ListItem><SocialIcon><Instagram className="footer__social__icon" onClick={() => window.location.href = 'https://www.instagram.com/biblioteca.usm/'}/> Instragram</SocialIcon></ListItem>
+          <ListItem><SocialIcon><Twitter className="footer__social__icon" onClick={() => window.location.href = 'https://x.com/Bibliotecausm'}/> Twitter</SocialIcon></ListItem>
         </List>
       </Section>
       <FooterLogo>
