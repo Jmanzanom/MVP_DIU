@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Facebook, Instagram, Twitter } from 'lucide-react';
+import '../stylesheets/footer/index.scss';
 
 // Estilos del contenedor principal del footer
 const FooterContainer = styled.footer`
@@ -56,6 +57,8 @@ const SocialIcons = styled.div`
   display: flex;
   justify-content: center;
   gap: 15px;
+  flex: 1 1 200px;
+  margin: 10px;
 `;
 
 const SocialIcon = styled.a`
@@ -98,14 +101,15 @@ const Footer = () => {
       <Section>
         <SectionTitle>REDES SOCIALES</SectionTitle>
         <List>
-          <ListItem><SocialIcon><Facebook className="footer__social__icon" onClick={() => window.location.href = 'https://www.facebook.com/bibliotecausmsanjoaquin'}/> Facebook</SocialIcon></ListItem>
-          <ListItem><SocialIcon><Instagram className="footer__social__icon" onClick={() => window.location.href = 'https://www.instagram.com/biblioteca.usm/'}/> Instragram</SocialIcon></ListItem>
-          <ListItem><SocialIcon><Twitter className="footer__social__icon" onClick={() => window.location.href = 'https://x.com/Bibliotecausm'}/> Twitter</SocialIcon></ListItem>
+          <ListItem><Link href = 'https://www.facebook.com/bibliotecausmsanjoaquin'><SocialIcon><Facebook/> Facebook</SocialIcon></Link></ListItem>
+          <ListItem><Link href = 'https://www.instagram.com/biblioteca.usm/'><SocialIcon><Instagram/> Instragram</SocialIcon></Link></ListItem>
+          <ListItem><Link href = 'https://x.com/Bibliotecausm'><SocialIcon><Twitter/> Twitter</SocialIcon></Link></ListItem>
         </List>
       </Section>
       <FooterLogo>
         <LogoImage src="https://usm.cl/wp-content/uploads/2021/07/usm_cl.svg" alt="Logo USM" />
-        <p>© Universidad Técnica Federico Santa María</p>
+        <div className='texto-footer'><p>© Universidad Técnica Federico Santa María</p></div>
+        
       </FooterLogo>
       
     </FooterContainer>
