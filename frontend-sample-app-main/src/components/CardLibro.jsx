@@ -24,11 +24,11 @@ function CardLibro({ libro, reservas, onReserve }) {
   return (
     <>
       <div className="card-libro">
-        <img
+        {libro.imagen && <img
           src={libro.imagen}
           alt={libro.nombre}
           className="card-libro__image"
-        />
+        />}
         <h3 className="card-libro__title">{libro.nombre}</h3>
         <p className="card-libro__author">{libro.autor}</p>
         <Button 

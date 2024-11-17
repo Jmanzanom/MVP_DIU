@@ -8,3 +8,32 @@
     text-align: center; /* Centrar el texto */
   }
   
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .pagination button {
+    background-color: grey;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .pagination button:hover {
+    background-color: #5a5a5a; /* Color gris más claro */
+  }
+  
+  .pagination button:disabled {
+    background-color: #003366; /* Color azul oscuro */
+    cursor: default;
+  }
+  
+  .pagination button:disabled:hover {
+    background-color: #004080; /* Azul oscuro más leve */
+  }
+  
