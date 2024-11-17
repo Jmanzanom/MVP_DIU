@@ -17,6 +17,19 @@ Install dependences
 npm install
 ```
 
+
+### Creacion .env
+
+Para el correcto funcionamiento de la pagina se debe crear un archivo .env que contenga la siguiente informacion:
+
+- REACT_APP_GOOGLE_BOOKS_API_KEY = CLAVE_API_GOOGLE_BOOKS //Aqui se debe reemplazar la clave de la api
+
+- Dicha clave puede ser conseguida en [Google Cloud](https://console.cloud.google.com) en el apartado de "APIs y servicios"
+
+En este apartado debemos buscar "Credenciales" y clickear en el boton Crear credenciales
+
+Por ultimo en el apartado "Biblioteca" dentro de esta misma página, buscaremos "Books API" y la habilitaremos
+
 Launch environment
 
 ```
@@ -38,14 +51,3 @@ npm install @babel/core babel-loader --save-dev
 
 - Sample stylesheets were written using the [BEM](https://getbem.com/) structure
 
-### Creacion .env
-
-Para el correcto funcionamiento de la pagina se debe crear un archivo .env que contenga la siguiente informacion:
-
-- REACT_APP_GOOGLE_BOOKS_API_KEY = CLAVE_API_GOOGLE_BOOKS //Aqui se debe reemplazar la clave de la api
-
-- Dicha clave puede ser conseguida en [Google Cloud](https://console.cloud.google.com) en el apartado de "APIs y servicios"
-
-En este apartado debemos buscar "Credenciales" y clickear en el boton Crear credenciales
-
-Por ultimo en el apartado "Biblioteca" dentro de esta misma página, buscaremos "Books API" y la habilitaremos
