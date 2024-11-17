@@ -128,3 +128,17 @@
     }
   }
   
+  .cancel-reservation-btn {
+    background: transparent;
+    color: red;
+    border: 1px solid red;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  
+  .cancel-reservation-btn:hover {
+    background-color: red;
+    color: white;
+  }
+  

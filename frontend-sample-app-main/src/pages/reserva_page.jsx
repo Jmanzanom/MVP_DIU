@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal } from 'react-bootstrap'; // Asegúrate de tener react-bootstrap instalado
+import { Modal } from 'react-bootstrap';
 
 const createTimeSlots = (startHour, endHour) => {
   const timeSlots = [];
@@ -39,6 +39,9 @@ export const ReservaPage = () => {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [reservationDetails, setReservationDetails] = useState(null);
+  const [reservations, setReservations] = useState([]);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [reservationToDelete, setReservationToDelete] = useState(null);
 
   const handleShowAvailability = () => {
     if (capacity && date) {
@@ -86,6 +89,25 @@ export const ReservaPage = () => {
   };
 
   const handleConfirmReservation = () => {
+    // Actualizar la disponibilidad a "ocupado"
+    const updatedAvailability = [...availability];
+    selectedBlocks.forEach(block => {
+      const [stationIndex, time] = block.split('-');
+      updatedAvailability[stationIndex].slots = updatedAvailability[stationIndex].slots.map(slot => 
+        slot.time === time ? { ...slot, available: false } : slot
+      );
+    });
+
+    setAvailability(updatedAvailability); // Actualizar disponibilidad en el estado
+    setReservations([
+      ...reservations,
+      {
+        rol,
+        selectedStations: reservationDetails?.selectedStations,
+        date,
+      },
+    ]);
+    setSelectedBlocks([]); // Deseleccionar los bloques después de la confirmación
     setShowConfirmModal(false);
     setShowSuccessModal(true);
   };
@@ -94,10 +116,38 @@ export const ReservaPage = () => {
     setShowSuccessModal(false);
   };
 
+  const handleCancelReservation = (reservation) => {
+    setReservationToDelete(reservation);
+    setShowDeleteModal(true);
+  };
+
+  const handleDeleteReservation = () => {
+    // Eliminar la reserva de la lista
+    setReservations(reservations.filter((reservation) => reservation !== reservationToDelete));
+    setShowDeleteModal(false);
+  };
+
+  const getCurrentTime = () => {
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    return { hours, minutes };
+  };
+  
+  const isTimeAvailable = (time) => {
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const [hour, minute] = time.split(':').map(Number);
+    // Compara si el horario es posterior al horario actual
+    return hour > hours || (hour === hours && minute > minutes);
+  };
+  
+
   return (
     <div className="reservation-system">
       <h1>Nueva reserva</h1>
-
+      <hr />
       {/* Localización */}
       <label>
         Localización:
@@ -121,7 +171,12 @@ export const ReservaPage = () => {
       {/* Fecha */}
       <label>
         Fecha:
-        <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+        <input
+          type="date"
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+          min={new Date().toISOString().split('T')[0]} // Bloquear fechas anteriores a hoy
+        />
       </label>
       <br /><br />
 
@@ -174,7 +229,7 @@ export const ReservaPage = () => {
                           textAlign: 'center',
                         }}
                         onClick={() =>
-                          slot.available && handleBlockSelect(stationIndex, slot.time)
+                          isTimeAvailable(slot.time) && handleBlockSelect(stationIndex, slot.time)
                         }
                       >
                         {slot.available ? 'Disponible' : 'Ocupado'}
@@ -226,7 +281,7 @@ export const ReservaPage = () => {
           <Modal.Title>Reserva Confirmada</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>¡La reserva fue confirmada exitosamente!</p>
+          <p>¡Su reserva ha sido confirmada con éxito!</p>
           <p><strong>Fecha:</strong> {reservationDetails?.date}</p>
           {reservationDetails?.selectedStations.map((station, index) => (
             <p key={index}><strong>Sala/Estación:</strong> {station.station} <strong>Horario:</strong> {station.time}</p>
@@ -237,8 +292,49 @@ export const ReservaPage = () => {
           <button onClick={handleCloseSuccessModal}>Cerrar</button>
         </Modal.Footer>
       </Modal>
+
+      {/* Lista de reservas */}
+      <br />
+      <h3>Mis Reservas:</h3>
+      <hr />
+      {reservations.length === 0 ? (
+        <p>Aún no has realizado ninguna reserva</p>
+      ) : (
+        <ul>
+          {reservations.map((reservation, index) => (
+            <li key={index}>
+              <p><strong>Fecha:</strong> {reservation.date}</p>
+              {reservation.selectedStations.map((station, idx) => (
+                <p key={idx}><strong>Sala/Estación:</strong> {station.station} <strong>Horario:</strong> {station.time}</p>
+              ))}
+              <p><strong>Rol:</strong> {reservation.rol}</p>
+              <button
+                className="cancel-reservation-btn"
+                onClick={() => handleCancelReservation(reservation)}
+              >
+                Cancelar reserva
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {/* Modal de confirmación de eliminación */}
+      <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirmar eliminación</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          ¿Estás seguro de que deseas eliminar esta reserva?
+        </Modal.Body>
+        <Modal.Footer>
+          <button onClick={handleDeleteReservation}>Confirmar</button>
+          <button onClick={() => setShowDeleteModal(false)}>Cancelar</button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };
+
 
 export default ReservaPage;
