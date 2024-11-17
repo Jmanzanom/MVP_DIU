@@ -8,7 +8,8 @@ module.exports = function(app) {
       changeOrigin: true,
       pathRewrite: (path, req) => {
         const originalPath = path.replace('/google-books', '');
-        const apiKey = 'AIzaSyBuHqtNBhZwGW6h8ZAUhDm5S04DtsAmdtE'; // Reemplaza esto con tu API Key
+        require('dotenv').config();
+        const apiKey = process.env.REACT_APP_GOOGLE_BOOKS_API_KEY;
         return `${originalPath}&key=${apiKey}`;
       },
     })
