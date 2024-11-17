@@ -229,7 +229,7 @@ export const ReservaPage = () => {
                           textAlign: 'center',
                         }}
                         onClick={() =>
-                          isTimeAvailable(slot.time) && handleBlockSelect(stationIndex, slot.time)
+                          slot.available && handleBlockSelect(stationIndex, slot.time)
                         }
                       >
                         {slot.available ? 'Disponible' : 'Ocupado'}
