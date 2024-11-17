@@ -5,14 +5,16 @@
     text-align: center;
     margin-bottom: 20px;
     color: #333;
+    font-size: 1.8rem;
   }
 
   .usuario-contenido {
     display: flex;
+    flex-wrap: wrap; // Permite que los elementos se ajusten en filas
     gap: 20px;
 
     .perfil-usuario {
-      width: 25%;
+      width: 100%; // Ocupa todo el ancho en móviles
       padding: 15px;
       border: 1px solid #ddd;
       border-radius: 8px;
@@ -21,20 +23,20 @@
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
       img {
-        width: 100px;
-        height: 100px;
+        width: 80px; // Más pequeño en móviles
+        height: 80px;
         border-radius: 50%;
         margin-bottom: 10px;
       }
 
       h3 {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
         color: #222;
         margin-bottom: 5px;
       }
 
       p {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         color: #555;
       }
     }
@@ -47,11 +49,13 @@
 
       p {
         text-align: center;
+        font-size: 1rem;
       }
 
       .reserva-card {
         display: flex;
-        align-items: center;
+        flex-wrap: wrap; // Ajusta el contenido en filas
+        align-items: flex-start;
         border: 1px solid #ddd;
         padding: 15px;
         border-radius: 8px;
@@ -59,25 +63,27 @@
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
         img {
-          width: 120px;
-          height: 160px;
+          width: 100px;
+          height: 140px;
           object-fit: cover;
           border-radius: 4px;
-          margin-right: 15px;
+          margin-bottom: 10px; // Espacio en móviles
         }
 
         .reserva-info {
           flex-grow: 1;
+          margin-left: 15px; // Espaciado lateral
+          min-width: 150px; // Evita colapsos en móviles pequeños
 
           h3 {
             margin: 0 0 10px;
-            font-size: 1.2rem;
+            font-size: 1rem;
             color: #222;
           }
 
           p {
             margin: 5px 0;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #555;
 
             strong {
@@ -93,7 +99,7 @@
           color: red;
           padding: 5px 10px;
           border-radius: 4px;
-          font-size: 0.9rem;
+          font-size: 0.8rem;
           cursor: pointer;
           transition: all 0.3s ease;
 
@@ -102,6 +108,46 @@
             color: #fff;
           }
         }
+      }
+    }
+  }
+
+  // Media Queries
+  @media (max-width: 768px) {
+    .usuario-contenido {
+      flex-direction: column; // Cambia a columnas en pantallas pequeñas
+    }
+
+    .perfil-usuario {
+      img {
+        width: 70px;
+        height: 70px;
+      }
+
+      h3 {
+        font-size: 1rem;
+      }
+
+      p {
+        font-size: 0.8rem;
+      }
+    }
+
+    .reservas-lista .reserva-card {
+      flex-direction: column; // Acomoda elementos en una sola columna
+      text-align: center;
+
+      img {
+        margin: 0 auto 15px; // Centra la imagen
+      }
+
+      .reserva-info {
+        margin: 0; // Elimina el margen lateral
+      }
+
+      button {
+        width: 100%; // Botón ocupa todo el ancho
+        margin-top: 10px;
       }
     }
   }

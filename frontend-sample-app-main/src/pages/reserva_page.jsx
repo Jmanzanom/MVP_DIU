@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal } from 'react-bootstrap';
 
 const createTimeSlots = (startHour, endHour) => {
@@ -43,6 +43,27 @@ export const ReservaPage = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [reservationToDelete, setReservationToDelete] = useState(null);
 
+  useEffect(() => {
+    try {
+      const storedReservations = localStorage.getItem('reservations');
+      if (storedReservations) {
+        setReservations(JSON.parse(storedReservations));
+      }
+    } catch (error) {
+      console.error("Error al cargar las reservas desde localStorage:", error);
+      // Si ocurre un error, asegúrate de no romper la aplicación
+      setReservations([]);
+    }
+  }, []);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('reservations', JSON.stringify(reservations));
+    } catch (error) {
+      console.error("Error al guardar las reservas en localStorage:", error);
+    }
+  }, [reservations]);
+  
   const handleShowAvailability = () => {
     if (capacity && date) {
       setAvailability(dummyAvailability[location][capacity]);
@@ -306,7 +327,7 @@ export const ReservaPage = () => {
       </Modal>
 
       {/* Lista de reservas */}
-      <br />
+      <br /><br />
       <h3>Mis Reservas:</h3>
       <hr />
       {reservations.length === 0 ? (

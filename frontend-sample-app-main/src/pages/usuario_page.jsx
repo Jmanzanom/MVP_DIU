@@ -7,7 +7,7 @@ const UsuarioPage = () => {
   const [reservas, setReservas] = useState([]);
   const [usuario, setUsuario] = useState({
     nombre: "Juan Pérez",
-    correo: "juan.perez@example.com",
+    correo: "juan.perez@usm.cl",
     imagen: avatar,
   });
   const [reservaSeleccionada, setReservaSeleccionada] = useState(null);
@@ -56,7 +56,7 @@ const UsuarioPage = () => {
         <PerfilUsuario usuario={usuario} />
         <div className="reservas-lista">
           {uniqueReservas.length === 0 ? (
-            <p>No has reservado ningún libro ni sala todavía.</p>
+            <p>No has reservado ningún libro todavía.</p>
           ) : (
             uniqueReservas.map((reserva) => (
               <div key={reserva.id} className="reserva-card">
