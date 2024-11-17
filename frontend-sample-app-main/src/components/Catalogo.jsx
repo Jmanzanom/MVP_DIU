@@ -85,9 +85,13 @@ function Catalogo({ reservas, onReserve }) {
     };
   
     const normalizedQuery = normalizeString(query);
-    const allBooks = Object.values(categorias).flat();
+    const allBooks = Object.entries(categorias).flatMap(([categoria, libros]) =>
+      libros.map(libro => ({ ...libro, categoria }))
+    );
     const filtered = allBooks.filter(libro =>
-      normalizeString(libro.nombre).includes(normalizedQuery)
+      normalizeString(libro.nombre).includes(normalizedQuery) ||
+      normalizeString(libro.autor).includes(normalizedQuery) ||
+      normalizeString(libro.categoria).includes(normalizedQuery)
     );
     setFilteredBooks(filtered);
   };
