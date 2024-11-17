@@ -107,7 +107,7 @@ export const ReservaPage = () => {
         date,
       },
     ]);
-    setSelectedBlocks([]); // Deseleccionar los bloques después de la confirmación
+    setSelectedBlocks([]); // Deseleccionar los bloques despues de la confirmación
     setShowConfirmModal(false);
     setShowSuccessModal(true);
   };
@@ -122,8 +122,21 @@ export const ReservaPage = () => {
   };
 
   const handleDeleteReservation = () => {
-    // Eliminar la reserva de la lista
-    setReservations(reservations.filter((reservation) => reservation !== reservationToDelete));
+    // Recuperar los bloques reservados para actualizarlos como disponibles
+    const updatedAvailability = [...availability];
+    
+    reservationToDelete.selectedStations.forEach(({ station, time }) => {
+      const stationIndex = updatedAvailability.findIndex(item => item.name === station);
+      if (stationIndex !== -1) {
+        updatedAvailability[stationIndex].slots = updatedAvailability[stationIndex].slots.map(slot =>
+          slot.time === time ? { ...slot, available: true } : slot
+        );
+      }
+    });
+  
+    setAvailability(updatedAvailability);
+  
+    setReservations(reservations.filter(reservation => reservation !== reservationToDelete));
     setShowDeleteModal(false);
   };
 
@@ -139,7 +152,6 @@ export const ReservaPage = () => {
     const hours = now.getHours();
     const minutes = now.getMinutes();
     const [hour, minute] = time.split(':').map(Number);
-    // Compara si el horario es posterior al horario actual
     return hour > hours || (hour === hours && minute > minutes);
   };
   
@@ -148,7 +160,7 @@ export const ReservaPage = () => {
     <div className="reservation-system">
       <h1>Nueva reserva</h1>
       <hr />
-      {/* Localización */}
+      {/* Localizacion */}
       <label>
         Localización:
         <select value={location} disabled>
@@ -241,7 +253,7 @@ export const ReservaPage = () => {
             </table>
           </div>
 
-          {/* Rol y botón de reserva */}
+          {/* Rol y boton de reserva */}
           <label>
             Rol:
             <input
@@ -257,7 +269,7 @@ export const ReservaPage = () => {
         </div>
       )}
 
-      {/* Modal de confirmación */}
+      {/* Modal de confirmacion */}
       <Modal show={showConfirmModal} onHide={() => setShowConfirmModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Confirmar reserva</Modal.Title>
@@ -275,7 +287,7 @@ export const ReservaPage = () => {
         </Modal.Footer>
       </Modal>
 
-      {/* Modal de éxito */}
+      {/* Modal de exito */}
       <Modal show={showSuccessModal} onHide={handleCloseSuccessModal}>
         <Modal.Header closeButton>
           <Modal.Title>Reserva Confirmada</Modal.Title>
@@ -319,7 +331,7 @@ export const ReservaPage = () => {
         </ul>
       )}
 
-      {/* Modal de confirmación de eliminación */}
+      {/* Modal de confirmacion de eliminacion */}
       <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Confirmar eliminación</Modal.Title>
