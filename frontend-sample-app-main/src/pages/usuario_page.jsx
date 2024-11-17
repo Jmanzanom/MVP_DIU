@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Modal, Button } from "react-bootstrap";
 import PerfilUsuario from "../components/PerfilUsuario";
 import avatar from "../assets/no_foto.jpg";
 
@@ -7,8 +8,10 @@ const UsuarioPage = () => {
   const [usuario, setUsuario] = useState({
     nombre: "Juan Pérez",
     correo: "juan.perez@example.com",
-    imagen: avatar, // Cambiar a una imagen real
+    imagen: avatar,
   });
+  const [reservaSeleccionada, setReservaSeleccionada] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   const today = new Date();
   let returnDate = new Date();
@@ -20,7 +23,6 @@ const UsuarioPage = () => {
     returnDate.setDate(returnDate.getDate() + 1);
   }
 
-
   useEffect(() => {
     const reservasGuardadas = JSON.parse(localStorage.getItem("reservas")) || [];
     setReservas(reservasGuardadas);
@@ -30,6 +32,17 @@ const UsuarioPage = () => {
     const nuevasReservas = reservas.filter((reserva) => reserva.id !== id);
     setReservas(nuevasReservas);
     localStorage.setItem("reservas", JSON.stringify(nuevasReservas));
+    setShowModal(false); // Cierra el modal tras confirmar
+  };
+
+  const handleShowModal = (reserva) => {
+    setReservaSeleccionada(reserva);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setReservaSeleccionada(null);
   };
 
   const uniqueReservas = Array.from(new Set(reservas.map((reserva) => reserva.id)))
@@ -38,7 +51,7 @@ const UsuarioPage = () => {
   return (
     <div className="usuario-page">
       <h1>Mis Reservas</h1>
-    <hr />
+      <hr />
       <div className="usuario-contenido">
         <PerfilUsuario usuario={usuario} />
         <div className="reservas-lista">
@@ -56,12 +69,37 @@ const UsuarioPage = () => {
                   <p>Fecha de Retiro: {today.toLocaleDateString()}</p>
                   <p>Fecha de Devolución: {returnDate.toLocaleDateString()}</p>
                 </div>
-                <button onClick={() => handleCancel(reserva.id)}>Cancelar Reserva</button>
+                <button onClick={() => handleShowModal(reserva)}>Cancelar Reserva</button>
               </div>
             ))
           )}
         </div>
       </div>
+
+      {/* Modal de confirmación */}
+      <Modal show={showModal} onHide={handleCloseModal} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirmar Cancelación</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {reservaSeleccionada && (
+            <>
+              <p>¿Estás seguro de que deseas cancelar la reserva de <strong>{reservaSeleccionada.nombre}</strong>?</p>
+            </>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Cancelar
+          </Button>
+          <Button
+            variant="danger"
+            onClick={() => handleCancel(reservaSeleccionada.id)}
+          >
+            Confirmar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };
